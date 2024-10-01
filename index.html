@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" src="style.css">
+
+</head>
+
+<body>
+    <div class = "title"> To Do List</div>
+    <form onsubmit="addTask()">
+        <input id = "task-input" type="text">
+        <button id = "task-add"></button>
+    </form>
+
+    <ul id = "tasks">
+        <li> Example 1</li>
+        <li> Example 2</li>
+    </ul>
+
+    <div id = "task-1"></div>
+
+    <script>
+        function addTask() {
+            let task_name = document.getElementById("task-input").value
+
+            let task_list = document.getElementById("tasks")
+            let newtask_item = document.createElement("li")
+            new_task_item.textContent = "testing value"
+
+            task_list.appendChild(newtask_item)
+        }
+    </script>
+
+</body>
+
