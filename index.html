@@ -1,34 +1,155 @@
 <!DOCTYPE html>
 <head>
-    <link rel="stylesheet" src="style.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
-    <div class = "title"> To Do List</div>
-    <form onsubmit="addTask()">
-        <input id = "task-input" type="text">
-        <button id = "task-add"></button>
-    </form>
+    <nav class ="header-bar">
+        <div class = "tools-container">
+            <div id = "title"> My Day </div>
+            <div class = "icon"> 
+                <img src="icons/menu.png">
+                <div> Grid</div>
+            </div>
+            <div class = "icon">
+                <img src="icons/list.png">
+                <div> List </div>
+            </div>
 
-    <ul id = "tasks">
-        <li> Example 1</li>
-        <li> Example 2</li>
-    </ul>
+            <div class="session-code"></div>
+            <div class="invite link"></div>
+        </div>
 
-    <div id = "task-1"></div>
+        <div id = "date"> </div>
+    </nav>
+
+    
+    <div id = "task-grid">
+        <div class = "task-grid-halves">
+            <form class = "input-bar" onsubmit="addTask()">
+                <input id = "task-input" type="text" placeholder="Add a task">
+                    <!-- When do you need the html closing tag? -->
+                    <img src=""> 
+                </input>
+            </form>
+
+            <div id = "task-container">
+                <div class="task-title">Tasks</div>
+                <div id = "tasks"></div>
+                <div id = "completed-tasks"> 
+                    <div class="task-title" id="completed-task-title"> Completed Tasks</div>
+                </div>    
+            </div>
+        </div>
+
+        <div class = "task-grid-halves">
+            <form class = "input-bar" onsubmit="addTask()">
+                <input id = "task-input" type="text" placeholder="Add a task">
+                    <!-- When do you need the html closing tag? -->
+                    <img src=""> 
+                </input>
+            </form>
+
+            <div id = "task-container">
+                <div class="task-title">Tasks</div>
+                <div id = "tasks"></div>
+                <div id = "completed-tasks"> 
+                    <div class="task-title" id="completed-task-title"> Completed Tasks</div>
+                </div>    
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="grid-practice">
+        <div class = "boy"> Gonna sug my balls</div>
+        <div class = "girl"> Gotta lick my clit</div>
+    </div> -->
 
     <script>
         function addTask() {
+            // Prevent default here is preventing it from actually submitting
+            event.preventDefault();
+
+            let id = document.querySelectorAll("#tasks div").length
+
             let task_name = document.getElementById("task-input").value
 
-            let task_list = document.getElementById("tasks")
-            let newtask_item = document.createElement("li")
-            new_task_item.textContent = "testing value"
+            if (task_name == '') {
+                return
+            }
 
-            task_list.appendChild(newtask_item)
+            let new_task = document.createElement("div")
+            new_task.innerHTML = `<input class = "task" type="checkbox" onclick = "completeTask()" id="${id}""> </input>
+                                  <label for = "${id}" contenteditable="true"> ${task_name} </label>
+                                  <button class = "delete-task-button" onclick = "removeTask(${id})" > <img src="icons/trash-can.png" id="trash-icon"> </button>`
+
+            new_task.className = "task-container-single"
+
+            // Very unsure why this works (cuz this just says tasks)
+            tasks.appendChild(new_task)
+
+            // Resetting the input bar
+            document.getElementById("task-input").value = ''
         }
+
+        function completeTask() {
+            let inputs = document.querySelectorAll("#tasks div")
+            
+            for (let i = 0; i < 10; i++) {
+                // did the turnerary force shut it down before?
+                if (inputs[i].querySelector("input").checked) {
+                    let result = document.getElementById("completed-tasks").appendChild(inputs[i])
+                }
+            }
+        }
+
+        function removeTask(id) {
+            let parent = document.getElementById(id).parentNode
+            parent.remove()
+        }
+
+
+
+        document.getElementById("date").innerHTML = Date().substring(0,15)
     </script>
 
 </body>
 
+
+
+<!-- Turn this website into something fullStack. Research a little more into react and tailwind -->
+
+<!-- The other thing would be creating a backend for this. A to do list with accountaiblity. Work towards dates with your partner. 
+ Add words of affirmation for each task completed :) -->
+
+
+<!-- Next step: let's start styling and making it look nice :)) -->
+
+<!-- Questions -->
+ <!-- what are inputs put on their own line when the parent div is set on flex? -->
+  <!-- Can i apply styling on "task" above here? -->
+   <!-- Use of gloabl variables? -->
+
+ <!-- Learnings: inputs are always put on their on -->
+
+ <!-- I don't know if React is something I actually need? I can see how its useful for avoiding code re-use and components but mmm otherwise I'm not too sure -->
+ <!-- But it's good for employability so I'll still give it a go :) -->
+
+
+ <!-- It may also be good for practice too like:
+  1. Build your app using vanilla stuff too
+  
+  Then if you want extra practice, you can convert it using the frameworks
+  
+  Then build another different one using the frameworks. Could end up with 2 different fullstack projects!! Quite cool
+
+  One to learn how to make a full stack web app. Then another one to learn how frameworks make that process easier!
+
+  I'll probs just roll with this for now then. And check in everynow and again to see if what I'm doing is good/right
+
+  I wouldn't mind jumping off at certain moments to try and convert it into React either. That could definitely be fun. 
+
+  Can create the frontend using the vanilla stuff first then convert/create it to React or something. I think the only thing is 
+  I wanna use more React now becuase I watched that tutorial more somewhat/kinda recently. But like yah an extra little bit won't hurt I think
+  -->
