@@ -1,4 +1,11 @@
-/* Functionality to go implement::after */
+/* Functionality to go implement::after
+1. Immediate fixes (functinality retention after split) --> get the trashcan in the right place
+2. Add scrolling wheels to the tasks so that they stay in place
+3. Add a little collector to the bottom
+4. Improve the aesthetics sufficiently enoguht to copy the
+5. 
+6. External user approval (creating a quick little backend?)
+ */
 
 html {
     font-size: 65%;
@@ -57,7 +64,7 @@ img {
     margin-bottom: 10px;
 }
 
-#task-input {
+.task-input {
     outline: none;
     border: none;
     border-radius: 3px;
@@ -68,12 +75,17 @@ img {
     box-sizing: border-box;
 }
 
-#task-input::placeholder {
+#task-input-boy::placeholder {
     color: #2564cf;
     font-size: 14px;
 }
 
-#task-input:focus {
+#task-input-girl::placeholder {
+    color: pink;
+    font-size: 14px;
+}
+
+.task-input:focus {
     color: black;
 }
 
@@ -101,8 +113,9 @@ img {
     padding:10px 16px;
 }
 
-#tasks {
+.tasks {
     width: 100%;
+    overflow: scroll;
     /* flex-direction: column;
     justify-content: center; */
 }
@@ -113,6 +126,7 @@ img {
     padding: 5px 16px;
     box-sizing: border-box;
     display: inline-block;
+    position: relative
 }
 
 .task {
@@ -128,7 +142,7 @@ label {
     margin-left: 5px
 }
 
-#completed-tasks {
+.completed-tasks {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
 }
@@ -140,9 +154,10 @@ label {
 .delete-task-button {
     border: none;
     background-color: transparent;
-    vertical-align: middle;
+    vertical-align: middle; 
     position: absolute;
-    right: 80px;
+    right: 20px;   
+    /* margin-left: 80%; */
 }
 
 #trash-icon {
@@ -154,5 +169,7 @@ label {
     grid-template-columns: 1fr 1fr;
     
 }
+
+
 /* Why the fuck does htis work? How come CSS can affect html stuff? --> I'm guessing this is bad coding practice though
 - Limited interactivity on IE? */
