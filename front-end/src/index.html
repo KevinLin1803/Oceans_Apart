@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<html>
+
+
 <head>
     <link rel="stylesheet" href="style.css">
 
@@ -9,11 +12,11 @@
         <div class = "tools-container">
             <div id = "title"> Our Day </div>
             <div class = "icon"> 
-                <img src="icons/menu.png">
+                <img src="../icons/menu.png">
                 <div> Grid</div>
             </div>
             <div class = "icon">
-                <img src="icons/list.png">
+                <img src="../icons/list.png">
                 <div> List </div>
             </div>
 
@@ -55,11 +58,6 @@
         </div>
     </div>
 
-    <!-- <div class="grid-practice">
-        <div class = "boy"> Gonna sug my balls</div>
-        <div class = "girl"> Gotta lick my clit</div>
-    </div> -->
-
     <script>
         function addTask(gender) {
             // Prevent default here is preventing it from actually submitting
@@ -74,8 +72,6 @@
                 var task_input = 'task-input-girl'
             }
 
-            console.log(tasks)
-
             let id = document.querySelectorAll(`#${tasks} div`).length
 
             let task_name = document.getElementById(`${task_input}`).value
@@ -87,7 +83,7 @@
             let new_task = document.createElement("div")
             new_task.innerHTML = `<input class = "task" type="checkbox" onclick = "completeTask('${gender}')" id="${gender}-${id}""> </input>
                                   <label for = "${gender}-${id}" contenteditable="true"> ${task_name} </label>
-                                  <button class = "delete-task-button" onclick = "removeTask('${gender}-${id}')" > <img src="icons/trash-can.png" id="trash-icon"> </button>`
+                                  <button class = "delete-task-button" onclick = "removeTask('${gender}-${id}')" > <img src="../icons/trash-can.png" id="trash-icon"> </button>`
 
             new_task.className = "task-container-single"
 
@@ -95,6 +91,20 @@
 
             // Resetting the input bar
             document.getElementById(`${task_input}`).value = ''
+
+            // need the header?
+            try {
+                const response = fetch('/api/users', {
+                method: "POST",
+                body: JSON.stringify({task: task_name, id: id}),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            } catch (error) {
+                console.log(error)
+            }
+            
         }
 
         function completeTask(gender) {
@@ -110,8 +120,6 @@
             let inputs = document.querySelectorAll(`#${tasks} div`)
             
             for (let i = 0; i < inputs.length; i++) {
-                console.log(inputs[i], i)
-
                 // did the turnerary force shut it down before?
                 if (inputs[i].querySelector("input").checked) {
                     let result = document.getElementById(`${completed_tasks}`).appendChild(inputs[i])
@@ -125,10 +133,14 @@
         }
 
         document.getElementById("date").innerHTML = Date().substring(0,15)
+
+        fetch('/api/users')
+            .then(res => res.json())
+            .then(users => console.log(users))
     </script>
 
 </body>
-
+</html>
 
 
 <!-- Turn this website into something fullStack. Research a little more into react and tailwind -->
