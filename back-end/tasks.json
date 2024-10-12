@@ -1,13 +1,122 @@
 [
   {
-    "boy": "lovely"
+    "task": "hey",
+    "id": 0,
+    "gender": "boy"
   },
   {
-    "girl": "Even more lovely"
+    "task": "hi",
+    "id": 1,
+    "gender": "boy"
   },
-  "{\"task\":\"try again\",\"id\":0}",
+  {
+    "task": "ho",
+    "id": 2,
+    "gender": "boy"
+  },
+  {
+    "task": "try",
+    "id": 0,
+    "gender": "boy"
+  },
+  {
+    "task": "again",
+    "id": 1,
+    "gender": "boy"
+  },
+  {
+    "task": "Seems",
+    "id": 0,
+    "gender": "girl"
+  },
+  {
+    "task": "to still",
+    "id": 1,
+    "gender": "girl"
+  },
+  {
+    "task": "work okay",
+    "id": 2,
+    "gender": "girl"
+  },
   {
     "task": "hey",
-    "id": 0
+    "id": 0,
+    "gender": "boy"
+  },
+  {
+    "task": "hi",
+    "id": 0,
+    "gender": "girl"
+  },
+  {
+    "task": "ho",
+    "id": 1,
+    "gender": "girl"
+  },
+  {
+    "task": "ho",
+    "id": 2,
+    "gender": "girl"
+  },
+  {
+    "task": "h",
+    "id": 3,
+    "gender": "girl"
+  },
+  {
+    "task": "Yep this still works",
+    "id": 1,
+    "gender": "boy"
+  },
+  {
+    "task": "hey",
+    "id": 0,
+    "gender": "boy"
+  },
+  {
+    "task": "ig w",
+    "id": 1,
+    "gender": "boy"
+  },
+  {
+    "task": "I would need to load completed tasks as well",
+    "id": 0,
+    "gender": "boy"
+  },
+  {
+    "task": "But that'd be easy in the sense you just need to add something to them",
+    "id": 1,
+    "gender": "boy"
+  },
+  {
+    "task": "and update them in the Json file",
+    "id": 2,
+    "gender": "boy"
+  },
+  {
+    "task": "I feel like",
+    "id": 0,
+    "gender": "boy"
+  },
+  {
+    "task": "you could probably",
+    "id": 1,
+    "gender": "boy"
+  },
+  {
+    "task": "do all of this in a local storag",
+    "id": 2,
+    "gender": "boy"
+  },
+  {
+    "task": "ebut its just",
+    "id": 3,
+    "gender": "boy"
+  },
+  {
+    "task": "worse when you deploy ti",
+    "id": 4,
+    "gender": "boy"
   }
 ]
