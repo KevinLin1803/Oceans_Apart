@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
-const data = require('../../back-end/tasks.json')
+// Why do or do these need to be constants?
+var data = require('../../back-end/tasks.json')
 const fs = require('fs')
 
 var bodyParser = require('body-parser')
@@ -26,11 +27,50 @@ app.post('/api/users', jsonParser, (req, res) => {
     data.push(new_tasks)
     // You need __dirname because that's the current directory
     fs.writeFileSync(__dirname + '/../../back-end/tasks.json', JSON.stringify(data, null, 2))
+
+    res.json()
 })
+
+// When are we supposed to use delete?
+app.post('/api/removetask', jsonParser, (req, res) => {
+    let id_to_remove = req.body
+    console.log('tasks before:', data)   
+
+    // No idea why this filter function doesn't work
+    // const new_data = data.filter((task) => {
+    //     task.id !== id_to_remove.id
+    // })
+
+    var new_data = []
+
+    for (task of data) {
+        console.log(task.id, id_to_remove.id, task.id != id_to_remove.id)
+        if (task.id != id_to_remove.id) {
+            new_data.push(task)
+        }
+    }
+
+    data = new_data
+    console.log('tasks after:', data)
+
+    // You need __dirname because that's the current directory
+    fs.writeFileSync(__dirname + '/../../back-end/tasks.json', JSON.stringify(data, null, 2))
+
+    // All server requests have to return a response. Doesn't always need to carry data
+    res.json()
+})
+
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`)
 })
+
+// How is it appending these extra genders? 
+
+// Improvements --> make the above work + add in a little bar for progression and kiss
+// Then you can send it to the gurl and just let it run like that :) --> saves for each browser
+
+// Today --> partial functinolaity --> but still worked well on the task :). Also got in contact with Hayden :)
 
 // I want to connect it 
 // Perfect the add

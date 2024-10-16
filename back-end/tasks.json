@@ -1,122 +1,122 @@
 [
   {
     "task": "hey",
-    "id": 0,
-    "gender": "boy"
+    "id": "boy-0",
+    "gender": "boy",
+    "completed": false
   },
   {
     "task": "hi",
-    "id": 1,
-    "gender": "boy"
+    "id": "boy-1",
+    "gender": "boy",
+    "completed": false
   },
   {
     "task": "ho",
-    "id": 2,
-    "gender": "boy"
-  },
-  {
-    "task": "try",
-    "id": 0,
-    "gender": "boy"
-  },
-  {
-    "task": "again",
-    "id": 1,
-    "gender": "boy"
-  },
-  {
-    "task": "Seems",
-    "id": 0,
-    "gender": "girl"
-  },
-  {
-    "task": "to still",
-    "id": 1,
-    "gender": "girl"
-  },
-  {
-    "task": "work okay",
-    "id": 2,
-    "gender": "girl"
-  },
-  {
-    "task": "hey",
-    "id": 0,
-    "gender": "boy"
-  },
-  {
-    "task": "hi",
-    "id": 0,
-    "gender": "girl"
+    "id": "boy-2",
+    "gender": "boy",
+    "completed": false
   },
   {
     "task": "ho",
-    "id": 1,
-    "gender": "girl"
+    "id": "boy-3",
+    "gender": "boy",
+    "completed": false
   },
   {
     "task": "ho",
-    "id": 2,
-    "gender": "girl"
+    "id": "boy-4",
+    "gender": "boy",
+    "completed": false
   },
   {
-    "task": "h",
-    "id": 3,
-    "gender": "girl"
+    "task": "Where ",
+    "id": "boy-5",
+    "gender": "boy",
+    "completed": false
   },
   {
-    "task": "Yep this still works",
-    "id": 1,
-    "gender": "boy"
+    "task": "is my scroll bar",
+    "id": "boy-6",
+    "gender": "boy",
+    "completed": false
   },
   {
-    "task": "hey",
-    "id": 0,
-    "gender": "boy"
+    "task": "He",
+    "id": "boy-7",
+    "gender": "boy",
+    "completed": false
   },
   {
-    "task": "ig w",
-    "id": 1,
-    "gender": "boy"
+    "task": "Yup",
+    "id": "girl-0",
+    "gender": "girl",
+    "completed": false
   },
   {
-    "task": "I would need to load completed tasks as well",
-    "id": 0,
-    "gender": "boy"
+    "task": "toie",
+    "id": "girl-1",
+    "gender": "girl",
+    "completed": false
   },
   {
-    "task": "But that'd be easy in the sense you just need to add something to them",
-    "id": 1,
-    "gender": "boy"
+    "task": "e",
+    "id": "girl-2",
+    "gender": "girl",
+    "completed": false
   },
   {
-    "task": "and update them in the Json file",
-    "id": 2,
-    "gender": "boy"
+    "task": "e",
+    "id": "girl-3",
+    "gender": "girl",
+    "completed": false
   },
   {
-    "task": "I feel like",
-    "id": 0,
-    "gender": "boy"
+    "task": "e",
+    "id": "girl-4",
+    "gender": "girl",
+    "completed": false
   },
   {
-    "task": "you could probably",
-    "id": 1,
-    "gender": "boy"
+    "task": "e",
+    "id": "girl-5",
+    "gender": "girl",
+    "completed": false
   },
   {
-    "task": "do all of this in a local storag",
-    "id": 2,
-    "gender": "boy"
+    "task": "e",
+    "id": "girl-6",
+    "gender": "girl",
+    "completed": false
   },
   {
-    "task": "ebut its just",
-    "id": 3,
-    "gender": "boy"
+    "task": "e",
+    "id": "girl-7",
+    "gender": "girl",
+    "completed": false
   },
   {
-    "task": "worse when you deploy ti",
-    "id": 4,
-    "gender": "boy"
+    "task": "e",
+    "id": "girl-8",
+    "gender": "girl",
+    "completed": false
+  },
+  {
+    "task": "e",
+    "id": "girl-9",
+    "gender": "girl",
+    "completed": false
+  },
+  {
+    "task": "e",
+    "id": "girl-10",
+    "gender": "girl",
+    "completed": false
+  },
+  {
+    "task": "e",
+    "id": "girl-11",
+    "gender": "girl",
+    "completed": false
   }
 ]
