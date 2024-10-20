@@ -1,0 +1,160 @@
+html {
+  font-size: 65%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f3f2f1;
+  overflow: hidden;
+  font-family: "Segoe","Segoe UI","Arial","sans-serif";
+}
+
+.header-bar {
+  position: relative;
+  left: 15px;
+}
+
+.tools-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon{
+  height: 10%;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+img {
+  height: 16px;
+}
+
+.title {
+  font-size: 20px;
+  margin-right: 30px;
+}
+
+.input-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.date {
+  font-size: 12px;
+  color: #605e5c;
+  margin-bottom: 30px;
+}
+
+.task-input {
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  width: 95%;
+  box-shadow: 0px 0px 3px 1px #55555517;
+  padding: 14px 16px;
+  box-sizing: border-box;
+}
+
+.task-input-boy::placeholder {
+  color: #2564cf;
+  font-size: 14px;
+}
+
+.task-input-girl::placeholder {
+  color: pink;
+  font-size: 14px;
+}
+
+.task-input:focus {
+  color: black;
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.task-container {
+  background-color: white;
+  width: 95%;
+  box-shadow: 0px 0px 3px 1px #55555517;
+  border-radius: 3px;
+}
+
+.task-title {
+  font-size: 14px;
+  font-weight: 700;
+  padding:10px 16px;
+}
+
+.tasks {
+  width: 100%;
+  overflow: scroll;
+  scrollbar-color:#2564cf;
+  scrollbar-width: thin;
+  max-height: 175px;
+}
+
+.task-container-single {
+  width: 100%;
+  border-top: 1px #f3f2f1 solid;
+  padding: 5px 16px;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative
+}
+
+.task {
+  vertical-align: middle;
+  background-color: black;
+  border-top: 100px #000000;
+}
+
+label {
+  vertical-align: middle;
+  pointer-events: none;
+  font-size: 14px;
+  margin-left: 5px
+}
+
+.completed-tasks {
+  overflow: scroll;
+  scrollbar-color:#2564cf;
+  scrollbar-width: thin;
+  max-height: 175px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.completed-task-title {
+  background-color: #f2f2f2ed;
+}
+
+.delete-task-button {
+  border: none;
+  background-color: transparent;
+  vertical-align: middle; 
+  position: absolute;
+  right: 20px;   
+}
+
+.trash-icon {
+  height: 10px;
+}
+
+.grid-practice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  
+}
