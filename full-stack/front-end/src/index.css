@@ -31,6 +31,19 @@ body {
   gap: 10px;
 }
 
+.sign-out {
+  margin-left: auto;
+  margin-right: 100px;
+  /* margin-left: 1000px; */
+}
+
+.session-code {
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: 180px;
+  font-weight: bold;
+}
+
 img {
   height: 16px;
 }
@@ -85,7 +98,7 @@ img {
   grid-template-columns: 1fr 1fr;
 }
 
-.task-container {
+.task-container, .auth-page-input-container{
   background-color: white;
   width: 95%;
   box-shadow: 0px 0px 3px 1px #55555517;
@@ -125,7 +138,7 @@ label {
   vertical-align: middle;
   pointer-events: none;
   font-size: 14px;
-  margin-left: 5px
+  margin-left: 25px
 }
 
 .completed-tasks {
@@ -149,6 +162,19 @@ label {
   right: 20px;   
 }
 
+.checkbox {
+  vertical-align: middle; 
+  position: absolute;
+}
+
+.checkmark-icon{
+  height: 16px
+}
+
+.checkmark-icon:hover{
+  cursor: pointer;
+}
+
 .trash-icon {
   height: 10px;
 }
@@ -156,5 +182,131 @@ label {
 .grid-practice {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  
+}
+
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0px 0px 3px 1px #55555517;
+  border-radius: 10px;
+  padding: 20px;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+}
+
+.auth-page-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.auth-page-input-container {
+  padding: 25px 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+  background-color: white;
+}
+
+.auth-page-inputs {
+  padding: 5px 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+}
+
+.auth-buttons {
+  margin-top: 15px;
+}
+
+.show-password-button {
+  width: 30%;
+  background-color: white;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.show-password-button:hover{
+  cursor: pointer;
+}
+
+.auth-button {
+  width: 50%;
+  border: none;
+  background-color: white;
+}
+
+.auth-button:hover {
+  background-color: rgb(197, 196, 196);
+}
+
+.progress-bar-component-container {
+  margin-top: 300px;
+  display: flex;
+  flex-direction: row;
+  /* Position fixed? */
+}
+
+.progress-bar-container {
+  width: 50%;
+}
+
+.progress-bar-girl{
+  height: 30px;
+  width: 90%;
+  transform: rotate(0.5turn);
+  float: right;
+}
+
+.progress-bar-girl-label{
+  float: right;
+}
+
+.progress-bar-boy {
+  height: 30px;
+  width: 90%;
+  /* float: right; */
+}
+
+.session-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center ;
+  align-items: center;
+  margin: auto auto;
+  position: absolute;
+  top: 30%;
+  left: 40%
+}
+
+.join-session-container {
+  height: 50px;
+}
+
+.create-session-button {
+  height: 50px;
+  font-size: 30px;
+  margin-bottom: 225px;
+}
+
+.join-session-input {
+  height: 65%;
+  width: 300px;
+}
+
+.join-session-title {
+  height: 25%;
+}
+
+.join-session-submit{
+  height: 70%;
+  margin-left: 5px;
 }

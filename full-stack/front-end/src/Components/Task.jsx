@@ -1,7 +1,10 @@
 import React from 'react'
 import trash from './icons/trash-can.png'
+import checkmark from './icons/checked.png'
+import { useCookies } from 'react-cookie'
 
 const Task = ({task, gender}) => {
+  const [cookies, setCookies, removeCookies] = useCookies("")
 
   const deleteTask = (async() => {
     try {
@@ -12,11 +15,32 @@ const Task = ({task, gender}) => {
       console.error(err)
     }
   })
+
+  const completeTask = (async() => {
+    deleteTask()
+
+    try {
+      await fetch(`${process.env.REACT_APP_SERVER}/progressbar`, {
+        method: "PUT",
+        body: JSON.stringify({"complete_task": 1, "session": cookies.Session}),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  })
   
   if (String(task.gender) === String(gender)) {
     return (
       <div className='task-container-single'>
-        <input className = "task" type="checkbox" id={task.id}></input>
+
+        <div className = "checkbox" onClick={completeTask}> 
+          <img src={checkmark} className="checkmark-icon" alt="complete"></img>
+        </div>
+
+        <div className = "task" id={task.id}></div>
         <label for = {task.id} contenteditable="true"> {task.title} </label>
         <button className = "delete-task-button" onClick={deleteTask}> 
           <img src={trash} className="trash-icon" alt="delete"></img>

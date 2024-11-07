@@ -1,8 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
+import { useCookies } from 'react-cookie'
+
 
 const Inputbar = ({gender}) => {
   const [task, setTask] = useState('')
+  const [cookies, setCookies, removeCookies] = useCookies("")
+  var session_id = cookies.Session
 
   const handleInput = ( (e) => {
     setTask(e.target.value)
@@ -20,7 +24,7 @@ const Inputbar = ({gender}) => {
         method: "POST",
         body: JSON.stringify({
           "id": null,
-          "user_email": "04kevinlin@gmail.com",
+          "session_id": session_id,
           "title": task,
           "date": new Date().toISOString(),
           "gender": gender
