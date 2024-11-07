@@ -83,7 +83,6 @@ app.post('/login', jsonParser, async (req, res) => {
     var {email, password} = req.body
 
     try {
-        console.log(email)
         const user = await pool.query(`SELECT * FROM "Users" WHERE "Users".user_email = $1`, 
             [email])
 
@@ -107,8 +106,7 @@ app.post('/login', jsonParser, async (req, res) => {
 })
 
 app.put('/progressbar', jsonParser, async (req, res) => {
-    var {session_id, task_target, complete_task} = req.body
-
+    var {session_id, task_target, complete_task} = req.body    
     try {
         if (task_target) {
             await pool.query(`UPDATE "Progressbars" as p SET tasks_target = $1 WHERE p.session_id = $2`, 
@@ -127,13 +125,10 @@ app.put('/progressbar', jsonParser, async (req, res) => {
 
 app.get('/progressbar/:session_id', jsonParser, async (req, res) => {
     var {session_id} = req.params
-    console.log('session id is', session_id)
 
     try {
         const data = await pool.query(`SELECT tasks_target, completed_tasks FROM "Progressbars" as p where p.session_id = $1`, 
             [session_id])
-
-        console.log('data from the query is', data.rows)
         
         res.json(data.rows)
         
@@ -193,4 +188,8 @@ server.listen(port, () => {
 // THINGS YOU HAVE TO DO --> ensure passwords have to match and also that you can only sign up once for each email
 // FOR SECURITY REASONS --> creating proper IDs, hashing the passwords, backend server signout (get rid of the Token)
 
-// Cleaning up the code: You can probably do this without the authToken
+// Cleaning up the code: You can probably do this without the authToken, web socket connections are insane (you get so many initally)
+
+// BUGS: Sometimes web can only take 6 task completions at a time
+
+// DESIGN DESIGIONS: COMPLETED TASK SECTION? TWO PROGRESS BARS?

@@ -22,7 +22,7 @@ const Task = ({task, gender}) => {
     try {
       await fetch(`${process.env.REACT_APP_SERVER}/progressbar`, {
         method: "PUT",
-        body: JSON.stringify({"complete_task": 1, "session": cookies.Session}),
+        body: JSON.stringify({"complete_task": 1, "session_id": cookies.Session}),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         }

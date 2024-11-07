@@ -11,15 +11,6 @@ function App() {
 
   var authToken = cookies.AuthToken
   var sessionToken = cookies.Session
-
-  console.log(authToken)
-
-  console.log(sessionToken)
-
-  // I think I'll want to do something similar here with a session token
-
-  // can pass email into your other components to show that you only get the stuff from the userEmail specified
-  // ask chatGpt for design help?
   var email = cookies.Email
 
   return (
