@@ -312,3 +312,68 @@ label {
   height: 70%;
   margin-left: 5px;
 }
+
+/* MODAL */
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.5);
+  /* setting the z-index made a big diff huh */
+    /* Set the modal to on and off depedning on a state variable */
+  z-index: 2;
+
+}
+
+.modal {
+  width: 500px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+
+  /* What is the point of the double here? */
+  box-shadow: rgba(0,0,0,0.05), 0px 6px 24px 0, rgba(0,0,0,0.08), 0 0 0 1px
+}
+
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%
+}
+
+.modal-header .input-bar-date{
+  width: 300px;
+  height: 20px;
+  padding: 7px 8px;
+}
+
+.modal-header button {
+  border: none;
+  background-color: transparent;
+  font-weight: bold;
+  position: relative;
+  /* Hard coding this bit in but I think your supopsed to use position layering here */
+  margin-top: -70px;
+  margin-left: 175px;
+}
+
+.modal-header button:hover{
+  color: red;
+}
+
+
+.modal .title {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+
+/* .date-container {
+} */

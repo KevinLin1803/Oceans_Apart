@@ -130,6 +130,10 @@ app.get('/progressbar/:session_id', jsonParser, async (req, res) => {
         const data = await pool.query(`SELECT tasks_target, completed_tasks FROM "Progressbars" as p where p.session_id = $1`, 
             [session_id])
         
+        if (data.rows[0].completed_tasks/data.rows[0].tasks_target >= 1) {
+            io.emit("progress_full","")
+        }
+
         res.json(data.rows)
         
         } catch (error) {
@@ -171,11 +175,56 @@ app.get('/joinsession/:id', jsonParser, async (req, res) => {
     }
 });
 
+// Try out polling, try making it slighly different --> boring to do things the same way over and over? can get it done quick though
+app.post('/dates', jsonParser, async (req, res) => {
+    var {id, session_id, title, date} = req.body
+    id = Date.now()
+    date = new Date().toISOString()
+
+    try {
+        await pool.query(`INSERT INTO "Dates" (date_id, session_id, date_title, date_date) VALUES ($1, $2, $3, $4)`, 
+            [id, session_id, title, date])
+        
+        io.emit("date_update","")
+
+    } catch (error) {
+        console.error(error)
+    }
+
+    res.json()
+})
+
+app.get('/dates/:session_id', async (req, res) => {
+    var {session_id} = req.params
+    
+    try {
+        const data = await pool.query(`Select * from "Dates" WHERE session_id = $1`, [session_id])
+        res.json(data.rows)
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+// whatever you put in the :id --> you need for the req.params too :)
+app.delete('/dates/:id', async (req, res) => {
+    var {id} = req.params
+    console.log(id)
+
+    try {
+        await pool.query(`DELETE FROM "Dates" WHERE date_id = $1`, [id])
+        io.emit("date_update","")
+    } catch (error) {
+        console.error(error)
+    }
+
+    res.json()
+})
+
 // Since we don't have that myny users and that tasks aren't being uploaded that frquently, polling may be better here actulaly
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.on('disconnect', () => {
-        console.log('a user disconnected');
+    socket.on('disconnect', (reason) => {
+        console.log(`a user disconnected due to ${reason}`);
     });
 });
 
@@ -189,6 +238,7 @@ server.listen(port, () => {
 // FOR SECURITY REASONS --> creating proper IDs, hashing the passwords, backend server signout (get rid of the Token)
 
 // Cleaning up the code: You can probably do this without the authToken, web socket connections are insane (you get so many initally)
+// A shit ton of repetition between date and task tbh
 
 // BUGS: Sometimes web can only take 6 task completions at a time
 

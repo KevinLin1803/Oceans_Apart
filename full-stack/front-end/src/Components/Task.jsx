@@ -41,7 +41,7 @@ const Task = ({task, gender}) => {
         </div>
 
         <div className = "task" id={task.id}></div>
-        <label for = {task.id} contenteditable="true"> {task.title} </label>
+        <label htmlFor = {task.id}> {task.title} </label>
         <button className = "delete-task-button" onClick={deleteTask}> 
           <img src={trash} className="trash-icon" alt="delete"></img>
         </button>

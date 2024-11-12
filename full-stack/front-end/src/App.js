@@ -21,7 +21,7 @@ function App() {
 
       {authToken && sessionToken &&
       <> 
-        <Headerbar /> 
+        <Headerbar />
         <TaskGrid /> 
         <Progressbar />
       </> }

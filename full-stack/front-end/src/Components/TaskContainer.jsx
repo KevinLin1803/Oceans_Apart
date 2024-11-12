@@ -1,7 +1,7 @@
 import React from 'react'
 import Task from './Task'
 import { useEffect, useState} from 'react'
-import { io } from "socket.io-client";
+import { getSocket } from './socket';
 import { useCookies } from 'react-cookie'
 
 
@@ -24,15 +24,21 @@ const TaskContainer = ({gender}) => {
   })
 
   useEffect(() => {
-    const socket = io(process.env.REACT_APP_SERVER);
+    // This is currently running twice. Might be some double mounting shit happening
+    console.log('Task Container are being initalised XX times')
 
-    socket.on('db_update', () => {setTaskUpdates(prevData => prevData + 1)})
+    const socket = getSocket()
+    const handleTaskUpdates = () => {setTaskUpdates(prevData => prevData + 1)}
+    const handleDisconnect = () => {console.log('Disconnected from server')}
 
-    socket.on('disconnect', () => {
-      console.log('Disconnected from server');
-    });
+    socket.on('db_update', handleTaskUpdates)
 
-    return () => socket.disconnect
+    socket.on('disconnect', handleDisconnect);
+
+    return () => {
+      socket.off('db_update', handleTaskUpdates)
+      socket.off('disconnect', handleDisconnect );
+    }
   }, [])
   
   useEffect(() => getTasks, [taskUpdates])

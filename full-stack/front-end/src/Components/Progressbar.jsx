@@ -1,12 +1,14 @@
 import React from 'react'
+import Date from './Date';
 import { useState, useEffect} from 'react'
 import { useCookies } from 'react-cookie'
-import { io } from "socket.io-client";
+import { getSocket } from './socket';
 
 const Progressbar = () => {
   const [taskTarget, setTaskTarget] = useState(10)
   const [cookies, setCookies, removeCookies] = useCookies("")
   const [completedTasks, setCompletedTasks] = useState(0)
+  const [showDate, setShowDate] = useState(true)
 
   // Yes it's slow but I think it has time to catchup
   const updateTarget = ((e) => {
@@ -42,17 +44,26 @@ const Progressbar = () => {
 
   // Keep it updating
   useEffect(()=> {
-    const socket = io(process.env.REACT_APP_SERVER);
-    // Why does this console.log twice on mounting?
-    console.log('established')
+    console.log('Progressbar are being initalised XX times')
 
-    socket.on('progress_update', getProgress)
+    const socket = getSocket()
+    const handleDisconnect = () => {console.log('Disconnected from server')}
+    const handleDate = () => {setShowDate(true); console.log('something happening')}
+    const handleProgress = () => {getProgress()}
 
-    socket.on('disconnect', () => {
-      console.log('Disconnected from server');
-    });
 
-    return () => socket.disconnect
+    socket.on('progress_update', handleProgress)
+
+    socket.on('progress_full', handleDate)
+
+    socket.on('disconnect', handleDisconnect);
+
+    // Careful though --> we never disconnect sockets. This is going to have to change once you really get started
+    return () => {
+      socket.off('progress_update', handleProgress)
+      socket.off('progress_full', handleDate)
+      socket.off('disconnect', handleDisconnect);
+    }
   }, [])
 
   return (
@@ -68,21 +79,23 @@ const Progressbar = () => {
             <div> {`${completedTasks/taskTarget * 100}%`}</div>
         </div>
 
-        {/* <div className = "progress-bar-container">
-            <div className='progress-bar-girl-label'>Set progress parameters</div>
-            <progress value="50" max="100" className='progress-bar-girl'></progress>
-        </div> */}
+        {showDate && (
+          <div className = 'overlay'>
+            <Date date={null} prize={true} />
+            <button onClick={()=>{setShowDate(false)}}>X</button>
+          </div>)}
     </div>
   )
 }
 
 export default Progressbar
 
+// Holy fugg --> the moral of today is that callbacks are insanely important => without them, React will just call them
 
-// To do
+// Remainders:
+// 1. Make it pretty
+// 2. Finish the debugging (eg: you have rather few limited sessions)
+// 3. Deploy it
 
-// Making the progress bar work for your partner as well (you can add tasks and whatnot with your partner)
-  // Thing is making it a live session is also different I think
-  // How do I make everything a live session?
-  
-// add Date list (modal + progress bar succession) + add invite link to partner + words of affirmation?
+// For tonight: ponder how/what to code while travelling. You wanna stay calm and continue learning (in a diff state)
+// But also how to improve your baseline level of coding. Define it and how to improve that (would raise travel baseline too)
