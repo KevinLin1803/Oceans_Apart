@@ -7,7 +7,7 @@
 - Edit task
 
 ## Extensions
-- incorporating GPT/AI wrapper to auto-generate date ideas based on the uploaded ones or generate Date Itenaries that can be uploaded/set as google calendar invites
+- incorporating GPT/AI wrapper to generate date itineraries based on the dates that have been uplodade
 - 
 
 ## Takeaways
