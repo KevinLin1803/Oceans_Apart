@@ -22,3 +22,9 @@
 - Wider Codings To Do
   - Experiment with more/different kinds of learning techniques (build this up --> methods that suit you)
   - Research more into different kinds of projects and whatnot to build
+ 
+- What's next?
+  - Koii - social media algo
+  - Using an OpenAI wrapper to solve some kind of issue of mine
+  - Some kind of OOP/comp sci vision/company related project?
+  - Or focus on job recruiting?
