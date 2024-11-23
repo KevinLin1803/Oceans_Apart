@@ -3,6 +3,8 @@ import TaskGrid from "./Components/TaskGrid"
 import Auth from "./Components/Auth"
 import Progressbar from "./Components/Progressbar"
 import Session from "./Components/Session"
+import Character from "./Components/Character"
+import Background from "./Components/Background"
 import { useCookies } from 'react-cookie'
 
 
@@ -15,6 +17,10 @@ function App() {
 
   return (
     <>
+      {/* <Character /> */}
+
+      <Background />
+
       {!authToken && <Auth />}
 
       {authToken && !sessionToken && <Session />}

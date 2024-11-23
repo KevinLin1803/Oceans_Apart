@@ -3,14 +3,40 @@ html {
 }
 
 body {
+  padding-top: 75px;
+  padding-left: 20px;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  background-color: #f3f2f1;
+  /* Might be easier to just create two divs/boxes for this */
   overflow: hidden;
   font-family: "Segoe","Segoe UI","Arial","sans-serif";
+  height: 100vh;
+  background: linear-gradient(to left, rgb(251, 165, 179) 0%, rgb(247, 240, 240) 50%, #6db6ff 75%);
 }
 
+/* BACKGROUND
+.ocean {
+  margin-left: -20px;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to left, rgb(251, 165, 179) 0%, rgb(247, 240, 240) 50%, #6db6ff 75%);
+}
+
+.ocean-left{
+  width: 50%;
+  /* background: linear-gradient(to right,  #6db6ff 50%, #95c9fd 80%, white 100%); */
+
+/* }
+
+.ocean-right{
+  width: 50%;
+  background: linear-gradient(to left, rgb(251, 165, 179) 50%, rgb(247, 185, 194)  80%, white  100%);
+} */
+
+/* HEADER BAR */
 .header-bar {
   position: relative;
   left: 15px;
@@ -19,17 +45,33 @@ body {
 .tools-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  background-color: none;
+}
+
+.date-button {
+  border: none;
+  background-color: none;
+  background: none;
+  margin-left: 27%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
 }
 
-.icon{
-  height: 10%;
-  padding: 12px 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
+.date-button label {
+  font-size: x-large;
+  font-weight: bold;
+  margin-right: 5px;
 }
+
+
+.date-button-icon {
+  background: none;
+  height: 30px;
+}
+
 
 .sign-out {
   margin-left: auto;
@@ -51,6 +93,7 @@ img {
 .title {
   font-size: 20px;
   margin-right: 30px;
+  font-weight: bold;
 }
 
 .input-bar {
@@ -64,8 +107,9 @@ img {
 
 .date {
   font-size: 12px;
-  color: #605e5c;
+  color: black;
   margin-bottom: 30px;
+  margin-top: 10px;
 }
 
 .task-input {
@@ -101,7 +145,6 @@ img {
 .task-container, .auth-page-input-container{
   background-color: white;
   width: 95%;
-  box-shadow: 0px 0px 3px 1px #55555517;
   border-radius: 3px;
 }
 
@@ -122,7 +165,7 @@ img {
 .task-container-single {
   width: 100%;
   border-top: 1px #f3f2f1 solid;
-  padding: 5px 16px;
+  padding: 5px 16pxx;
   box-sizing: border-box;
   display: inline-block;
   position: relative
@@ -179,10 +222,8 @@ label {
   height: 10px;
 }
 
-.grid-practice {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+
+/* AUTH */
 
 .auth-page {
   display: flex;
@@ -191,15 +232,15 @@ label {
   background-color: white;
   box-shadow: 0px 0px 3px 1px #55555517;
   border-radius: 10px;
-  padding: 20px;
-  width: 40%;
+  padding: 30px;
+  width: 35%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 60px;
 }
 
 .auth-page-title {
-  font-size: 20px;
+  font-size: 25px;
   margin-bottom: 10px;
   font-weight: bold;
 }
@@ -211,6 +252,7 @@ label {
   flex-direction: column;
   width: 55%;
   background-color: white;
+  row-gap: 10px;
 }
 
 .auth-page-inputs {
@@ -218,10 +260,20 @@ label {
   margin-bottom: 10px;
   border-radius: 5px;
   border-width: 1px;
+  outline: none;
 }
 
-.auth-buttons {
-  margin-top: 15px;
+.user-signup-button {
+  background-color: #6db6ff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+}
+
+.user-signup-button:hover {
+  background-color: rgb(251, 165, 179);
+  cursor: pointer;
 }
 
 .show-password-button {
@@ -230,54 +282,130 @@ label {
   border: none;
   color: blue;
   text-decoration: underline;
-  margin-bottom: 5px;
   font-size: 12px;
+  margin-top: -5px;
 }
 
 .show-password-button:hover{
   cursor: pointer;
 }
 
+
+.auth-buttons {
+  margin-top: 15px;
+  height: 35px;
+}
+
 .auth-button {
+  height: 100%;
   width: 50%;
   border: none;
   background-color: white;
+  border-radius: 0 0 5px 5px;
 }
 
 .auth-button:hover {
   background-color: rgb(197, 196, 196);
 }
 
+/* PROGRESS BAR */
 .progress-bar-component-container {
   margin-top: 300px;
-  display: flex;
-  flex-direction: row;
-  /* Position fixed? */
-}
-
-.progress-bar-container {
-  width: 100%;
-  position: absolute;
-  /* left: 30px; */
-}
-
-.progress-bar-girl{
-  height: 30px;
-  width: 90%;
-  transform: rotate(0.5turn);
-  float: right;
-}
-
-.progress-bar-girl-label{
-  float: right;
+  /* width: 100vw; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* flex-direction: row;
+  justify-content: center;
+  align-items: center; */
 }
 
 .progress-bar-boy {
+  background-color: #fefefe;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   height: 30px;
-  width: 90%;
-  /* float: right; */
+  width: 94%;
+  margin-top: 10px
 }
 
+.progress-boy {
+  /* background: #ad5389; */
+  background: blue;
+  border-radius: 3px;
+  height: 100%;
+  transition: width 0.5s ease-in;
+}
+
+.progress-boy-figure{
+  margin-top: -24px;
+  color: black;
+  font-size: medium;
+}
+
+.set-task-girl {
+  float: right;
+  margin-right:75px;
+}
+
+.set-task-girl div {
+  float: right;
+}
+
+.progress-bar-girl{
+  background-color: #fefefe;
+  border-radius: 3px;
+  box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.2);
+  height: 30px;
+  width: 93%;
+  transform: rotate(0.5turn);
+  float: right;
+  margin-right:75px;
+  margin-top: 10px;
+}
+
+.progress-girl {
+  background: rgb(238, 133, 214);
+  border-radius: 3px;
+  height: 100%;
+  transition: width 0.5s ease-in;
+}
+
+.progress-girl-figure{
+  margin-top: -24px;
+  color: black;
+  font-size: medium;
+  transform: rotate(0.5turn);
+}
+
+.progress-description{
+  position: absolute;
+  left: 42%;
+  font-size: large;
+}
+
+.taskTarget-Button {
+  border: none;
+  background-color: white;
+  border-radius: 2px;
+  margin-left: 5px;
+  height: 20px;
+}
+
+.tasktarget-input {
+  width: 50px;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  height: 20px;
+}
+
+.task-target-title{
+  margin-bottom: 3px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* SESSION PAGE */
 .session-page {
   display: flex;
   flex-direction: column;
@@ -285,32 +413,78 @@ label {
   align-items: center;
   margin: auto auto;
   position: absolute;
-  top: 30%;
-  left: 40%
+  top: 25%;
+  left: 41%;
 }
 
 .join-session-container {
+  background-color: white;
+  height: 200px;
+  border-radius: 10px;
+  padding: 20px 20px 40px;
+}
+
+.join-session-form {
+  box-shadow: 0px 0px 4px 2px #55555517;
+  margin-bottom: 10px;
   height: 50px;
+}
+
+.previous-session-container {
+  margin-top: 30px;
+}
+
+.previous-sessions {
+  margin-top: 10px;
+  width: 100%;
+  height: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 2x 1px #55555517;
+  border-radius: 5px;
+  background-color: white;
+}
+
+
+.create-session-container {
+  height: 200px;
 }
 
 .create-session-button {
-  height: 50px;
   font-size: 30px;
   margin-bottom: 225px;
+  background: white;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: rgba(0,0,0,0.05), 0px 6px 24px 0, rgba(0,0,0,0.08), 0 0 0 1px;
+  
+}
+
+button:hover{
+  cursor: pointer;
 }
 
 .join-session-input {
-  height: 65%;
+  height: 100%;
   width: 300px;
-}
-
-.join-session-title {
-  height: 25%;
+  border: none;
+  box-shadow: rgba(0,0,0,0.05), 0px 6px 24px 0, rgba(0,0,0,0.08), 0 0 0 1px;
+  border-radius: 5px;
+  padding: 3px 8px;
+  outline: none;
+  font-size: large;
 }
 
 .join-session-submit{
-  height: 70%;
+  height: 100%;
   margin-left: 5px;
+  border: none;
+  background: none;
+  font-size: large;
+}
+
+.session-search {
+  height: 50%;
 }
 
 /* MODAL */
@@ -374,6 +548,154 @@ label {
   font-weight: bold;
 }
 
+/* BACKGROUND */
 
-/* .date-container {
-} */
+
+/* Keyframes for bubbly effect */
+@keyframes bubbly-text {
+  0% {
+      clip-path: circle(0% at 50% 50%);
+      color: transparent; /* Text starts transparent */
+  }
+  50% {
+      color: white; /* Text becomes visible halfway */
+  }
+  100% {
+      clip-path: circle(150% at 50% 50%);
+  }
+}
+
+.bubble {
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  position: absolute;
+  background-color: white;
+  bottom: -30px;
+  opacity: 0.2;
+  animation: bubble 15s ease-in-out infinite,
+    sideWays 4s ease-in-out infinite alternate;
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateY(0%);
+    opacity: 0.06;
+  }
+  100% {
+    transform: translateY(-120vh);
+  }
+}
+
+.bubble--1 {
+  z-index: 1;
+  left: 10%;
+  animation-delay: 0.5s;
+  animation-duration: 16s;
+  opacity: 0.2;
+}
+
+.bubble--2 {
+  z-index: 1;
+  width: 15px;
+  height: 15px;
+  left: 40%;
+  animation-delay: 1s;
+  animation-duration: 10s;
+  opacity: 0.1;
+}
+
+.bubble--3 {
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  left: 30%;
+  animation-delay: 5s;
+  animation-duration: 20s;
+  opacity: 0.3;
+}
+
+.bubble--4 {
+  z-index: 1;
+  width: 25px;
+  height: 25px;
+  left: 40%;
+  animation-delay: 8s;
+  animation-duration: 17s;
+  opacity: 0.2;
+}
+
+.bubble--5 {
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  left: 60%;
+  animation-delay: 10s;
+  animation-duration: 15s;
+  opacity: 0.1;
+}
+
+.bubble--6 {
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  left: 80%;
+  animation-delay: 3s;
+  animation-duration: 30s;
+  opacity: 0.4;
+}
+
+.bubble--7 {
+  z-index: 1;
+  width: 15px;
+  height: 15px;
+  left: 90%;
+  animation-delay: -7s;
+  animation-duration: 25s;
+  opacity: 0.3;
+}
+
+.bubble--9 {
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  left: 50%;
+  bottom: 30px;
+  animation-delay: -5s;
+  animation-duration: 19s;
+  opacity: 0.2;
+}
+
+.bubble--10 {
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  left: 30%;
+  bottom: 30px;
+  animation-delay: -21s;
+  animation-duration: 16s;
+  opacity: 0.3;
+}
+
+.bubble--11 {
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  left: 60%;
+  bottom: 30px;
+  animation-delay: -13.75s;
+  animation-duration: 20s;
+  opacity: 0.3;
+}
+
+.bubble--11 {
+  z-index: 1;
+  width: 25px;
+  height: 25px;
+  left: 90%;
+  bottom: 30px;
+  animation-delay: -10.5s;
+  animation-duration: 19s;
+  opacity: 0.3;
+}

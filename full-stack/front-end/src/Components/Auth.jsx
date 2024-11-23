@@ -41,7 +41,6 @@ const Auth = () => {
 		}
 
 		try {
-			// Also wanna set up/make sure passwords match
 			const res = await fetch(url,  {
 				method: "POST",
 				body: JSON.stringify({email: email, password: password}),
@@ -74,13 +73,12 @@ const Auth = () => {
 			{signup && <input type={inputType} placeholder="Confirm Password" className = "auth-page-inputs" onChange={handleConfirmPasswordChange}></input>}
 			<div className = "show-password-button" onClick={showPassword}> Show Password</div>
 			<div>{error}</div>
-			<button> Submit </button>
+			<button className = "user-signup-button"> {signup? 'Sign Up' : 'Log In'} </button>
 			<div className = "auth-buttons">
 				<button type = "button" className = "auth-button" onClick={() => setSignup(true)}> Sign up </button>
 				<button type = "button" className = "auth-button" onClick={() => {setSignup(false)}}> Log in </button>
 			</div>
 		</div>
-
     </form>
   )
 }

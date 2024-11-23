@@ -25,8 +25,6 @@ const TaskContainer = ({gender}) => {
 
   useEffect(() => {
     // This is currently running twice. Might be some double mounting shit happening
-    console.log('Task Container are being initalised XX times')
-
     const socket = getSocket()
     const handleTaskUpdates = () => {setTaskUpdates(prevData => prevData + 1)}
     const handleDisconnect = () => {console.log('Disconnected from server')}

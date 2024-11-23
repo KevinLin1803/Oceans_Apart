@@ -40,7 +40,6 @@ const Date = ({date, prize, showRandomDate}) => {
 
 
   if (prize) {
-    console.log('we enter the random date section')
     if (!randomDate) return <div>Nothing loaded</div>;
   
     return (

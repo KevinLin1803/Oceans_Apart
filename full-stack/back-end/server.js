@@ -21,14 +21,38 @@ const io = new Server(server, {
   });
 
 
-app.get('/tasks/:session_id', async (req, res) => {
-    var {session_id} = req.params
-    
+app.get('/user/:email', async (req, res) => {
+    var {email} = req.params
+
+    const client = await pool.connect()
+
+
     try {
-        const data = await pool.query(`Select * from "Tasks" WHERE session_id = $1`, [session_id])
+        const data = await client.query(`Select sessions from "Users" WHERE user_email = $1`, [email])
         res.json(data.rows)
     } catch (error) {
         console.error(error)
+        res.status(500).json({ error: 'Get user sessions error ' })
+    } finally {
+        client.release()
+    }
+})
+
+app.get('/tasks/:session_id', async (req, res) => {
+    var {session_id} = req.params
+    // I'm not even using ti
+    const client = await pool.connect()
+    console.log('Retrieving new tasks. Total active:', pool.totalCount)
+
+    try {
+        const data = await client.query(`Select * from "Tasks" WHERE session_id = $1`, [session_id])
+        res.json(data.rows)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 'Get tasks from session error ' })
+    } finally {
+        client.release()
+        console.log('Realsing after retrivewing new tasks. Active before release:', pool.totalCount)
     }
 })
 
@@ -36,13 +60,19 @@ app.post('/tasks', jsonParser, async (req, res) => {
     var {id, session_id, title, date, gender} = req.body
     id = Date.now()
 
+    const client = await pool.connect()
+    
     try {
-        await pool.query(`INSERT INTO "Tasks" (id, session_id, title, date, gender) VALUES ($1, $2, $3, $4, $5)`, 
+        await client.query(`INSERT INTO "Tasks" (id, session_id, title, date, gender) VALUES ($1, $2, $3, $4, $5)`, 
             [id, session_id, title, date, gender])
         
         io.emit("db_update","")
     } catch (error) {
         console.error(error)
+        res.status(500).json({ error: 'Get tasks from session error ' })
+    } finally {
+        client.release()
+        console.log('Client released from DELETE Remaining active:', pool.totalCount)
     }
 
     res.json()
@@ -50,12 +80,19 @@ app.post('/tasks', jsonParser, async (req, res) => {
 
 app.delete('/tasks/:id', async (req, res) => {
     var {id} = req.params
+    const client = await pool.connect()
+    console.log('Delete Task FUNCTION. Total active:', pool.totalCount)
 
     try {
-        await pool.query(`DELETE FROM "Tasks" WHERE id = $1`, [id])
+        await client.query(`DELETE FROM "Tasks" WHERE id = $1`, [id])
+
         io.emit("db_update","")
     } catch (error) {
         console.error(error)
+    } finally {
+        console.log('Releasing client. Active before release:', pool.totalCount)
+        client.release()
+        console.log('Client released from DELETE Remaining active:', pool.totalCount)
     }
 
     res.json()
@@ -64,8 +101,10 @@ app.delete('/tasks/:id', async (req, res) => {
 app.post('/signup', jsonParser, async (req, res) => {
     var {email, password} = req.body
 
+    const client = await pool.connect()
+
     try {
-        await pool.query(`INSERT INTO "Users" (user_email, password) VALUES ($1, $2)`, 
+        await client.query(`INSERT INTO "Users" (user_email, password) VALUES ($1, $2)`, 
             [email, password])
 
         const token = jwt.sign({
@@ -76,14 +115,19 @@ app.post('/signup', jsonParser, async (req, res) => {
 
     } catch (error) {
         console.error(error)
+    } finally {
+        client.release()
+        console.log('Client released from signup:', pool.totalCount)
     }
 })
 
 app.post('/login', jsonParser, async (req, res) => {
     var {email, password} = req.body
 
+    const client = await pool.connect()
+
     try {
-        const user = await pool.query(`SELECT * FROM "Users" WHERE "Users".user_email = $1`, 
+        const user = await client.query(`SELECT * FROM "Users" WHERE "Users".user_email = $1`, 
             [email])
 
         if (user.rows.length == 0) {
@@ -102,76 +146,155 @@ app.post('/login', jsonParser, async (req, res) => {
 
     } catch (error) {
         console.error(error)
+    } finally {
+        client.release()
+        console.log('Client released from login:', pool.totalCount)
     }
 })
 
 app.put('/progressbar', jsonParser, async (req, res) => {
-    var {session_id, task_target, complete_task} = req.body    
+    var {session_id, task_target, gender} = req.body
+
+    const client = await pool.connect()
+    console.log('Progressbar update complete task pool. Total active:', pool.totalCount)
+
     try {
         if (task_target) {
-            await pool.query(`UPDATE "Progressbars" as p SET tasks_target = $1 WHERE p.session_id = $2`, 
+            var dataField = gender === 'girl' ? "tasks_target_girl": "tasks_target"
+
+            await client.query(`UPDATE "Progressbars" as p SET ${dataField} = $1 WHERE p.session_id = $2`, 
                 [task_target, session_id])
+
         } else {
-            await pool.query(`UPDATE "Progressbars" as p SET completed_tasks = completed_tasks + 1 WHERE p.session_id = $1`, 
+            var dataField = gender === 'girl' ? "completed_tasks_girl": "completed_tasks"
+
+            await client.query(`UPDATE "Progressbars" as p SET ${dataField} = ${dataField} + 1 WHERE p.session_id = $1`, 
                 [session_id])
         }
-
+        
         io.emit("progress_update","")
 
     } catch (error) {
         console.error(error)
+        // res.status(500).json({ error: 'Database error' })
+    } finally {
+        console.log('Releasing client. Active before release:', pool.totalCount)
+        client.release()
+        console.log('Client released from UPDATE Remaining active:', pool.totalCount)
     }
+
+    res.json()
+});
+
+// Resetting after we hit 100% on our dates
+app.put('/progressbar/:session_id', jsonParser, async (req, res) => {
+    var {session_id} = req.params
+
+    const client = await pool.connect()
+    console.log('Resetting progressbar. Total active:', pool.totalCount)
+
+    try {        
+        await client.query(`UPDATE "Progressbars" as p SET completed_tasks = $1, completed_tasks_girl = $2 WHERE p.session_id = $3`, 
+            [0, 0, session_id])
+  
+        io.emit("progress_update","")
+        
+    } catch (error) {
+        console.error(error)
+        return res.json({"data": "Error resetting data details:" + error })
+    } finally {
+        client.release()
+        console.log('Client released after resetting progressbar Remaining active:', pool.totalCount)
+    }
+
+    res.json()
+
 });
 
 app.get('/progressbar/:session_id', jsonParser, async (req, res) => {
     var {session_id} = req.params
 
+    const client = await pool.connect()
+    console.log('Retrieving new progressbar. Total active:', pool.totalCount)
+
     try {
-        const data = await pool.query(`SELECT tasks_target, completed_tasks FROM "Progressbars" as p where p.session_id = $1`, 
+        const data = await client.query(`SELECT tasks_target, completed_tasks, tasks_target_girl, completed_tasks_girl FROM "Progressbars" as p where p.session_id = $1`, 
             [session_id])
         
-        if (data.rows[0].completed_tasks/data.rows[0].tasks_target >= 1) {
+        const boy_progress = data.rows[0].completed_tasks/data.rows[0].tasks_target
+        const girl_progress = data.rows[0].completed_tasks_girl/data.rows[0].tasks_target_girl
+        
+        console.log('girl stats', data.rows[0].completed_tasks_girl, data.rows[0].tasks_target_girl, )
+        console.log(boy_progress, girl_progress)
+        if (boy_progress >= 1 && girl_progress >= 1) {
             io.emit("progress_full","")
         }
 
         res.json(data.rows)
         
-        } catch (error) {
+    } catch (error) {
         console.error(error)
+        res.status(500).json({ error: 'Database error' })
+    } finally {
+        client.release()
+        console.log('Client released from retrieving new progressbar Remaining active:', pool.totalCount)
     }
+
 });
 
-app.post('/createsession', jsonParser, async (req, res) => {
+app.post('/createsession/:email', jsonParser, async (req, res) => {
+    var {email} = req.params
+
     var id = Date.now().toString(36) + Math.random().toString(36).substring(2);
 
-    try {
-        await pool.query(`INSERT INTO "Sessions" (session_id) VALUES ($1)`, [id])
+    const client = await pool.connect()
 
-        await pool.query(`INSERT INTO "Progressbars" (session_id, completed_tasks, tasks_target) VALUES ($1, $2, $3)`,
-            [id, 0 , 10]
+    try {
+        await client.query(`INSERT INTO "Sessions" (session_id) VALUES ($1)`, [id])
+
+        await client.query(`INSERT INTO "Progressbars" (session_id, completed_tasks, tasks_target, completed_tasks_girl, tasks_target_girl) 
+            VALUES ($1, $2, $3, $4, $5)`,
+            [id, 0 , 10, 0, 10]
         )
-  
-        res.json({"session": id})
+
+        await client.query(`UPDATE "Users" SET sessions = sessions || $1 WHERE "Users".user_email = $2`, [[id], email]) 
         
+        res.json({"session": id})
+
     } catch (error) {
         console.error(error)
         return res.json({"data": "Error creating session:" + error })
+    } finally {
+        client.release()
+        console.log('Client released from creating session.  Remaining active:', pool.totalCount)
     }
+
 });
 
-app.get('/joinsession/:id', jsonParser, async (req, res) => {
-    var {id} = req.params
+app.get('/joinsession/:id/:email', jsonParser, async (req, res) => {
+    var {id, email} = req.params
+
+    console.log(id, email)
 
     var token = Date.now().toString(36) + Math.random().toString(36).substring(2);
 
+    const client = await pool.connect()
+
     try {
-        await pool.query(`SELECT session_id FROM "Sessions" WHERE session_id = $1 `, [id])
+        await client.query(`SELECT session_id FROM "Sessions" WHERE session_id = $1 `, [id])
+
+        if (email) {
+            await client.query(`UPDATE "Users" SET sessions = sessions || $1 WHERE "Users".user_email = $2`, [[id], email]) 
+        }
         
         res.json({"session": token})
         
     } catch (error) {
         console.error(error)
         return res.json({"data": "Error joining session:" + error })
+    } finally {
+        client.release()
+        console.log('Client released from joining session.  Remaining active:', pool.totalCount)
     }
 });
 
@@ -181,14 +304,19 @@ app.post('/dates', jsonParser, async (req, res) => {
     id = Date.now()
     date = new Date().toISOString()
 
+    const client = await pool.connect()
+
     try {
-        await pool.query(`INSERT INTO "Dates" (date_id, session_id, date_title, date_date) VALUES ($1, $2, $3, $4)`, 
+        await client.query(`INSERT INTO "Dates" (date_id, session_id, date_title, date_date) VALUES ($1, $2, $3, $4)`, 
             [id, session_id, title, date])
         
         io.emit("date_update","")
 
     } catch (error) {
         console.error(error)
+    } finally {
+        client.release()
+        console.log('Client released from posting dates.  Remaining active:', pool.totalCount)
     }
 
     res.json()
@@ -196,25 +324,34 @@ app.post('/dates', jsonParser, async (req, res) => {
 
 app.get('/dates/:session_id', async (req, res) => {
     var {session_id} = req.params
-    
+
+    const client = await pool.connect()
+
     try {
-        const data = await pool.query(`Select * from "Dates" WHERE session_id = $1`, [session_id])
+        const data = await client.query(`Select * from "Dates" WHERE session_id = $1`, [session_id])
         res.json(data.rows)
     } catch (error) {
         console.error(error)
+    } finally {
+        client.release()
+        console.log('Client released from getting dates.  Remaining active:', pool.totalCount)
     }
 })
 
 // whatever you put in the :id --> you need for the req.params too :)
 app.delete('/dates/:id', async (req, res) => {
     var {id} = req.params
-    console.log(id)
+
+    const client = await pool.connect()
 
     try {
-        await pool.query(`DELETE FROM "Dates" WHERE date_id = $1`, [id])
+        await client.query(`DELETE FROM "Dates" WHERE date_id = $1`, [id])
         io.emit("date_update","")
     } catch (error) {
         console.error(error)
+    } finally {
+        client.release()
+        console.log('Client released from deleting dates.  Remaining active:', pool.totalCount)
     }
 
     res.json()

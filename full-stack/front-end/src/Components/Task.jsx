@@ -17,16 +17,18 @@ const Task = ({task, gender}) => {
   })
 
   const completeTask = (async() => {
-    deleteTask()
+    await deleteTask()
 
     try {
       await fetch(`${process.env.REACT_APP_SERVER}/progressbar`, {
         method: "PUT",
-        body: JSON.stringify({"complete_task": 1, "session_id": cookies.Session}),
+        body: JSON.stringify({"completed_tasks": 1, "gender": gender, "session_id": cookies.Session}),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         }
       })
+
+      console.log('we finishing it')
     } catch (err) {
       console.error(err)
     }
@@ -35,7 +37,6 @@ const Task = ({task, gender}) => {
   if (String(task.gender) === String(gender)) {
     return (
       <div className='task-container-single'>
-
         <div className = "checkbox" onClick={completeTask}> 
           <img src={checkmark} className="checkmark-icon" alt="complete"></img>
         </div>
