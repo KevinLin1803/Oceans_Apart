@@ -1,6 +1,8 @@
+require('dotenv').config()
+
 const express = require('express')
 const app = express()
-const port = 5500
+const port = process.env.PORT
 const pool = require('./db.js')
 const cors = require('cors')
 const { createServer } = require('node:http');
@@ -15,7 +17,7 @@ app.use(cors())
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000", // Update to your React app's URL
+      origin: "http://localhost:3000",
       methods: ["GET", "POST", "DELETE", "PUT"]
     }
   });
