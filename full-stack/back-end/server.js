@@ -1,6 +1,8 @@
+require('dotenv').config()
+
 const express = require('express')
 const app = express()
-const port = 5500
+const port = process.env.SERVER_PORT
 const pool = require('./db.js')
 const cors = require('cors')
 const { createServer } = require('node:http');
