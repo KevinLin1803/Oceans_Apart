@@ -42,7 +42,6 @@ app.get('/tasks/:session_id', async (req, res) => {
     var {session_id} = req.params
     // I'm not even using ti
     const client = await pool.connect()
-    console.log('Retrieving new tasks. Total active:', pool.totalCount)
 
     try {
         const data = await client.query(`Select * from "Tasks" WHERE session_id = $1`, [session_id])
@@ -52,7 +51,6 @@ app.get('/tasks/:session_id', async (req, res) => {
         res.status(500).json({ error: 'Get tasks from session error ' })
     } finally {
         client.release()
-        console.log('Realsing after retrivewing new tasks. Active before release:', pool.totalCount)
     }
 })
 
@@ -72,7 +70,6 @@ app.post('/tasks', jsonParser, async (req, res) => {
         res.status(500).json({ error: 'Get tasks from session error ' })
     } finally {
         client.release()
-        console.log('Client released from DELETE Remaining active:', pool.totalCount)
     }
 
     res.json()
@@ -81,7 +78,6 @@ app.post('/tasks', jsonParser, async (req, res) => {
 app.delete('/tasks/:id', async (req, res) => {
     var {id} = req.params
     const client = await pool.connect()
-    console.log('Delete Task FUNCTION. Total active:', pool.totalCount)
 
     try {
         await client.query(`DELETE FROM "Tasks" WHERE id = $1`, [id])
@@ -90,9 +86,7 @@ app.delete('/tasks/:id', async (req, res) => {
     } catch (error) {
         console.error(error)
     } finally {
-        console.log('Releasing client. Active before release:', pool.totalCount)
         client.release()
-        console.log('Client released from DELETE Remaining active:', pool.totalCount)
     }
 
     res.json()
@@ -117,7 +111,6 @@ app.post('/signup', jsonParser, async (req, res) => {
         console.error(error)
     } finally {
         client.release()
-        console.log('Client released from signup:', pool.totalCount)
     }
 })
 
@@ -148,7 +141,6 @@ app.post('/login', jsonParser, async (req, res) => {
         console.error(error)
     } finally {
         client.release()
-        console.log('Client released from login:', pool.totalCount)
     }
 })
 
@@ -156,7 +148,6 @@ app.put('/progressbar', jsonParser, async (req, res) => {
     var {session_id, task_target, gender} = req.body
 
     const client = await pool.connect()
-    console.log('Progressbar update complete task pool. Total active:', pool.totalCount)
 
     try {
         if (task_target) {
@@ -164,7 +155,7 @@ app.put('/progressbar', jsonParser, async (req, res) => {
 
             await client.query(`UPDATE "Progressbars" as p SET ${dataField} = $1 WHERE p.session_id = $2`, 
                 [task_target, session_id])
-
+            
         } else {
             var dataField = gender === 'girl' ? "completed_tasks_girl": "completed_tasks"
 
@@ -176,14 +167,12 @@ app.put('/progressbar', jsonParser, async (req, res) => {
 
     } catch (error) {
         console.error(error)
-        // res.status(500).json({ error: 'Database error' })
     } finally {
-        console.log('Releasing client. Active before release:', pool.totalCount)
         client.release()
-        console.log('Client released from UPDATE Remaining active:', pool.totalCount)
     }
 
     res.json()
+
 });
 
 // Resetting after we hit 100% on our dates
@@ -191,7 +180,6 @@ app.put('/progressbar/:session_id', jsonParser, async (req, res) => {
     var {session_id} = req.params
 
     const client = await pool.connect()
-    console.log('Resetting progressbar. Total active:', pool.totalCount)
 
     try {        
         await client.query(`UPDATE "Progressbars" as p SET completed_tasks = $1, completed_tasks_girl = $2 WHERE p.session_id = $3`, 
@@ -204,7 +192,6 @@ app.put('/progressbar/:session_id', jsonParser, async (req, res) => {
         return res.json({"data": "Error resetting data details:" + error })
     } finally {
         client.release()
-        console.log('Client released after resetting progressbar Remaining active:', pool.totalCount)
     }
 
     res.json()
@@ -215,7 +202,6 @@ app.get('/progressbar/:session_id', jsonParser, async (req, res) => {
     var {session_id} = req.params
 
     const client = await pool.connect()
-    console.log('Retrieving new progressbar. Total active:', pool.totalCount)
 
     try {
         const data = await client.query(`SELECT tasks_target, completed_tasks, tasks_target_girl, completed_tasks_girl FROM "Progressbars" as p where p.session_id = $1`, 
@@ -224,8 +210,6 @@ app.get('/progressbar/:session_id', jsonParser, async (req, res) => {
         const boy_progress = data.rows[0].completed_tasks/data.rows[0].tasks_target
         const girl_progress = data.rows[0].completed_tasks_girl/data.rows[0].tasks_target_girl
         
-        console.log('girl stats', data.rows[0].completed_tasks_girl, data.rows[0].tasks_target_girl, )
-        console.log(boy_progress, girl_progress)
         if (boy_progress >= 1 && girl_progress >= 1) {
             io.emit("progress_full","")
         }
@@ -237,7 +221,6 @@ app.get('/progressbar/:session_id', jsonParser, async (req, res) => {
         res.status(500).json({ error: 'Database error' })
     } finally {
         client.release()
-        console.log('Client released from retrieving new progressbar Remaining active:', pool.totalCount)
     }
 
 });
@@ -266,15 +249,12 @@ app.post('/createsession/:email', jsonParser, async (req, res) => {
         return res.json({"data": "Error creating session:" + error })
     } finally {
         client.release()
-        console.log('Client released from creating session.  Remaining active:', pool.totalCount)
     }
 
 });
 
 app.get('/joinsession/:id/:email', jsonParser, async (req, res) => {
     var {id, email} = req.params
-
-    console.log(id, email)
 
     var token = Date.now().toString(36) + Math.random().toString(36).substring(2);
 
@@ -294,11 +274,9 @@ app.get('/joinsession/:id/:email', jsonParser, async (req, res) => {
         return res.json({"data": "Error joining session:" + error })
     } finally {
         client.release()
-        console.log('Client released from joining session.  Remaining active:', pool.totalCount)
     }
 });
 
-// Try out polling, try making it slighly different --> boring to do things the same way over and over? can get it done quick though
 app.post('/dates', jsonParser, async (req, res) => {
     var {id, session_id, title, date} = req.body
     id = Date.now()
@@ -316,7 +294,6 @@ app.post('/dates', jsonParser, async (req, res) => {
         console.error(error)
     } finally {
         client.release()
-        console.log('Client released from posting dates.  Remaining active:', pool.totalCount)
     }
 
     res.json()
@@ -334,7 +311,6 @@ app.get('/dates/:session_id', async (req, res) => {
         console.error(error)
     } finally {
         client.release()
-        console.log('Client released from getting dates.  Remaining active:', pool.totalCount)
     }
 })
 
@@ -351,10 +327,10 @@ app.delete('/dates/:id', async (req, res) => {
         console.error(error)
     } finally {
         client.release()
-        console.log('Client released from deleting dates.  Remaining active:', pool.totalCount)
     }
 
     res.json()
+
 })
 
 // Since we don't have that myny users and that tasks aren't being uploaded that frquently, polling may be better here actulaly

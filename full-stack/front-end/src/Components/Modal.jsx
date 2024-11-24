@@ -71,7 +71,7 @@ const Modal = ({setShowModal}) => {
     };  
   }, [])
 
-  useEffect(() => {getDates()}, [])
+  useEffect(()=> {getDates()}, [])
   
   return (
     <div className='overlay'>
@@ -84,15 +84,14 @@ const Modal = ({setShowModal}) => {
               <button onClick={()=>{setShowModal(false)}}>X</button>
             </div>
 
+            <div className = "objective-description"> * Reach 100% to decide your next date! </div>
+
             <div className = "date-container">
-              <div className = "title"> Dates </div>
+              <div className = "title"> Your Dates </div>
               {dates?.map((date) => <Date key={date.date_id} date={date} prize={false}/>)}
             </div>
-        </div>      
-      <div>
-          No dates! Please add :D
-      </div>
 
+        </div>      
     </div>
   )
 }

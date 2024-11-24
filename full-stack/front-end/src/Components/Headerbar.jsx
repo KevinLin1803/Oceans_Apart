@@ -1,7 +1,7 @@
 import React from 'react'
 import signout from './icons/logout.png'
 import Modal from './Modal'
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import { useCookies } from 'react-cookie'
 import heart from './icons/heart.png'
 
@@ -9,6 +9,7 @@ import heart from './icons/heart.png'
 const Headerbar = () => {
   const [cookies, setCookies, removeCookies] = useCookies("")
   const [showModal, setShowModal] = useState(false)
+  const [dates, setDates] = useState([])
 
     // I need to delete session from the database as well ngl
   const logout = () => {
@@ -18,24 +19,27 @@ const Headerbar = () => {
     window.location.reload();
   }
 
+  const getDates = (async () => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_SERVER}/dates/${cookies.Session}`)
+      const data = await res.json()
+      setDates(data)
+      console.log(data)
+      if (data.length == 0) {
+        setShowModal(true)
+      }
+    } catch(err) {
+      console.error(err)
+    }
+  })
+
+  useEffect(()=> {getDates()}, [])
+
   return (
     <>
       <nav className = "header-bar">
           <div className = "tools-container">
               <div className = "title">{`Session ID: ${cookies.Session}`} </div>
-              {/* <div className = "icon"> 
-                  <img src={menu} alt='menu'></img>
-                  <div> Grid</div>
-              </div>
-              <div className = "icon">
-                  <img src={grid} alt='grid'></img>
-                  <div> List </div>
-              </div> */}
-
-              {/* onclick for this I want to show off a modal and then be able to add + delete date ideas 
-              (hot damn --> a mini to do list in of itself) --> this would involve more web sockets though. I wonder if. no you don't want that
-              HMMM --> storing it would be good
-              Otherwise generating a date idea would be interesting as well (AI date idea --> creating this wrapper would cost me money though) */}
 
               {/* Let's have a look at how overlays work */}
               <button onClick={()=>setShowModal(true)} className = "date-button">

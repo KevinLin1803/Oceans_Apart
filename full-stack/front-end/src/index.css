@@ -3,43 +3,21 @@ html {
 }
 
 body {
-  padding-top: 75px;
-  padding-left: 20px;
+  padding-top: 50px;
+  padding-left: 30px;
   margin: 0;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   /* Might be easier to just create two divs/boxes for this */
   overflow: hidden;
-  font-family: "Segoe","Segoe UI","Arial","sans-serif";
   height: 100vh;
+  font-family: "Fredoka", sans-serif;
   background: linear-gradient(to left, rgb(251, 165, 179) 0%, rgb(247, 240, 240) 50%, #6db6ff 75%);
 }
-
-/* BACKGROUND
-.ocean {
-  margin-left: -20px;
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-  width: 100vw;
-  background: linear-gradient(to left, rgb(251, 165, 179) 0%, rgb(247, 240, 240) 50%, #6db6ff 75%);
-}
-
-.ocean-left{
-  width: 50%;
-  /* background: linear-gradient(to right,  #6db6ff 50%, #95c9fd 80%, white 100%); */
-
-/* }
-
-.ocean-right{
-  width: 50%;
-  background: linear-gradient(to left, rgb(251, 165, 179) 50%, rgb(247, 185, 194)  80%, white  100%);
-} */
 
 /* HEADER BAR */
 .header-bar {
   position: relative;
-  left: 15px;
 }
 
 .tools-container {
@@ -53,37 +31,45 @@ body {
   border: none;
   background-color: none;
   background: none;
-  margin-left: 27%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-left: 24%;
 }
 
 .date-button label {
-  font-size: x-large;
-  font-weight: bold;
+  font-size: 28px;
+  font-weight: 500;
   margin-right: 5px;
+  font-family: "Fredoka", sans-serif;
 }
 
+input {
+  font-family: "Fredoka", sans-serif;
+}
+
+button {
+  font-family: "Fredoka", sans-serif;
+}
 
 .date-button-icon {
   background: none;
   height: 30px;
 }
 
-
 .sign-out {
   margin-left: auto;
   margin-right: 100px;
-  /* margin-left: 1000px; */
+  height: 30px;
 }
 
-.session-code {
-  font-size: 20px;
-  margin-left: auto;
-  margin-right: 180px;
-  font-weight: bold;
+.sign-out:hover {
+  cursor: pointer;
+}
+
+.sign-out img {
+  height: 22px
 }
 
 img {
@@ -93,7 +79,7 @@ img {
 .title {
   font-size: 20px;
   margin-right: 30px;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .input-bar {
@@ -103,10 +89,12 @@ img {
   align-items: center;
   position: relative;
   margin-bottom: 10px;
+  /* height: 100px; */
 }
 
+/* DATE */
 .date {
-  font-size: 12px;
+  font-size: 15px;
   color: black;
   margin-bottom: 30px;
   margin-top: 10px;
@@ -116,25 +104,54 @@ img {
   outline: none;
   border: none;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 18px;
   width: 95%;
   box-shadow: 0px 0px 3px 1px #55555517;
   padding: 14px 16px;
   box-sizing: border-box;
+  height: 60px;
+}
+
+.random-date-container {
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+}
+
+.random-date-container div{
+  font-size: 40px;
+  margin-top: -5px;
+  text-align: center;
+}
+
+.random-date-container img{
+  height: 40px;
+}
+
+.book-date {
+  height: 50px;
+  width: 120px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 40px;
+  background-color:  #6db6ff;
+  color: white;
+  position: absolute;
+  left: 47%;
+  right: 47%;
+  font-size: 15px;
+}
+
+.book-date:hover {
+  background-color: rgb(251, 165, 179) 
 }
 
 .task-input-boy::placeholder {
   color: #2564cf;
-  font-size: 14px;
 }
 
 .task-input-girl::placeholder {
   color: pink;
-  font-size: 14px;
-}
-
-.task-input:focus {
-  color: black;
 }
 
 .task-grid {
@@ -149,9 +166,10 @@ img {
 }
 
 .task-title {
-  font-size: 14px;
-  font-weight: 700;
-  padding:10px 16px;
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 450;
+  padding: 10px 16px;
 }
 
 .tasks {
@@ -159,16 +177,17 @@ img {
   overflow: scroll;
   scrollbar-color:#2564cf;
   scrollbar-width: thin;
-  max-height: 175px;
+  max-height: 160px;
 }
 
 .task-container-single {
   width: 100%;
   border-top: 1px #f3f2f1 solid;
-  padding: 5px 16pxx;
+  padding: 10px 16px;
   box-sizing: border-box;
   display: inline-block;
-  position: relative
+  position: relative;
+  /* font-size: 30px; */
 }
 
 .task {
@@ -182,19 +201,6 @@ label {
   pointer-events: none;
   font-size: 14px;
   margin-left: 25px
-}
-
-.completed-tasks {
-  overflow: scroll;
-  scrollbar-color:#2564cf;
-  scrollbar-width: thin;
-  max-height: 175px;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-
-.completed-task-title {
-  background-color: #f2f2f2ed;
 }
 
 .delete-task-button {
@@ -222,7 +228,6 @@ label {
   height: 10px;
 }
 
-
 /* AUTH */
 
 .auth-page {
@@ -242,7 +247,7 @@ label {
 .auth-page-title {
   font-size: 25px;
   margin-bottom: 10px;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .auth-page-input-container {
@@ -309,23 +314,27 @@ label {
 }
 
 /* PROGRESS BAR */
+/* #root {
+  position: absolute;
+} */
+
 .progress-bar-component-container {
-  margin-top: 300px;
-  /* width: 100vw; */
+  position: fixed;
+  top: 470px;     /* Distance from top of viewport */
+  left: 30px;    /* Distance from left of viewport */
+  right: 0px;   /* Distance from right of viewport */
+  bottom: 200px;  /* Distance from bottom of viewport */
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* flex-direction: row;
-  justify-content: center;
-  align-items: center; */
 }
 
 .progress-bar-boy {
   background-color: #fefefe;
   border-radius: 3px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  height: 30px;
-  width: 94%;
-  margin-top: 10px
+  height: 50px;
+  width: 95%;
+  margin-top: -60px
 }
 
 .progress-boy {
@@ -337,14 +346,14 @@ label {
 }
 
 .progress-boy-figure{
-  margin-top: -24px;
+  margin-top: -36px;
   color: black;
   font-size: medium;
 }
 
 .set-task-girl {
   float: right;
-  margin-right:75px;
+  margin-right:50px;
 }
 
 .set-task-girl div {
@@ -355,12 +364,12 @@ label {
   background-color: #fefefe;
   border-radius: 3px;
   box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.2);
-  height: 30px;
+  height: 50px;
   width: 93%;
   transform: rotate(0.5turn);
   float: right;
-  margin-right:75px;
-  margin-top: 10px;
+  margin-right:50px;
+  margin-top: -31px;
 }
 
 .progress-girl {
@@ -371,16 +380,10 @@ label {
 }
 
 .progress-girl-figure{
-  margin-top: -24px;
+  margin-top: -33px;
   color: black;
   font-size: medium;
   transform: rotate(0.5turn);
-}
-
-.progress-description{
-  position: absolute;
-  left: 42%;
-  font-size: large;
 }
 
 .taskTarget-Button {
@@ -388,20 +391,33 @@ label {
   background-color: white;
   border-radius: 2px;
   margin-left: 5px;
-  height: 20px;
+  height: 30px;
+  font-size: 15px;
+}
+
+.set_task_target_girl button:hover {
+  background-color: #6db6ff;
+}
+
+.set_task_target_boy button:hover {
+  background-color: rgb(251, 165, 179) 
+  ;
 }
 
 .tasktarget-input {
   width: 50px;
   outline: none;
   border: none;
-  border-radius: 2px;
-  height: 20px;
+  border-radius: 4px;
+  height: 30px;
+  font-size: 15px;
+  text-align: center;
 }
 
 .task-target-title{
-  margin-bottom: 3px;
-  font-size: 15px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -426,24 +442,39 @@ label {
 
 .join-session-form {
   box-shadow: 0px 0px 4px 2px #55555517;
+  border-radius: 5px;
   margin-bottom: 10px;
   height: 50px;
+  font-size: 20px;
 }
 
 .previous-session-container {
   margin-top: 30px;
+  padding-right: 20px;
+  /* box-shadow: 0px 0px 2px 1px #55555517; */
+  border-radius: 5px;
+  overflow: scroll;
+  max-height: 150px;;
+}
+
+.prev-session-title {
+  font-size: 20px;
+  font-weight: 400;
+  padding: 10px 10px;
+  margin-top: -10px;
 }
 
 .previous-sessions {
-  margin-top: 10px;
+  padding: 10px;
+  font-size: 15px;
   width: 100%;
   height: 20px;
-  background-color: white;
-  box-shadow: 0px 0px 2x 1px #55555517;
-  border-radius: 5px;
-  background-color: white;
+  margin-bottom: 8px;
 }
 
+.previous-sessions:hover {
+  cursor: pointer;
+}
 
 .create-session-container {
   height: 200px;
@@ -457,7 +488,6 @@ label {
   border-radius: 10px;
   padding: 20px;
   box-shadow: rgba(0,0,0,0.05), 0px 6px 24px 0, rgba(0,0,0,0.08), 0 0 0 1px;
-  
 }
 
 button:hover{
@@ -465,14 +495,13 @@ button:hover{
 }
 
 .join-session-input {
+  background-color: transparent;
   height: 100%;
   width: 300px;
   border: none;
-  box-shadow: rgba(0,0,0,0.05), 0px 6px 24px 0, rgba(0,0,0,0.08), 0 0 0 1px;
-  border-radius: 5px;
   padding: 3px 8px;
   outline: none;
-  font-size: large;
+  font-size: 23px;
 }
 
 .join-session-submit{
@@ -545,7 +574,21 @@ button:hover{
 
 .modal .title {
   margin-top: 20px;
-  font-weight: bold;
+  font-weight: 500;
+}
+
+.objective-description {
+  font-size: 12px;
+  margin-top: 10px;
+  color: grey;
+}
+
+
+/*FISH ICONS*/
+svg {
+  height: 150px;
+  /* Do this for margin though */
+  transition: margin-left 0.5s ease-in;
 }
 
 /* BACKGROUND */

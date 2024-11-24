@@ -56,14 +56,3 @@ const Task = ({task, gender}) => {
 }
 
 export default Task
-
-// onChange
-
-// onclick = "{`completeTask('${gender}')`}" --> this is additional custom functionlaity to work around a little later imo
-// complete task + edit --> come back to work on this after authentication
-
-// After we got authentication --> + the other basic functinolaities we'll work on creating the progress bar
-
-// That universal progress bar might just be something we set or we collect input from the user I reckon.
-
-// onclick = "{`removeTask('${id}')`}"

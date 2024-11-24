@@ -88,10 +88,10 @@ const Session = () => {
 			</form>
 
 			<div className = "previous-session-container">
+				<div className ="prev-session-title"> Your Previous Sessions</div>
 				{prevSessions?.map((s) => <Prevsession key={s} session = {s}> </Prevsession>)}
 			</div>
 		</div>
-
 
 		<div>{error}</div>
     </div>

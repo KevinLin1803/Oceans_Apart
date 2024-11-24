@@ -25,8 +25,6 @@ const Prevsession = ({session}) => {
 		}
 	}
 
-    console.log(session)
-
   return (
     <div className = "previous-sessions" onClick={joinSession} >
         {session}

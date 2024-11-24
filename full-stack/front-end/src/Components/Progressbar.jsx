@@ -3,6 +3,8 @@ import Date from './Date';
 import { useState, useEffect} from 'react'
 import { useCookies } from 'react-cookie'
 import { getSocket } from './socket';
+import Boyfish from './Boyfish';
+import Girlfish from './Girlfish';
 
 const Progressbar = () => {
   const [taskTarget, setTaskTarget] = useState(10)
@@ -99,8 +101,17 @@ const Progressbar = () => {
     // Adjust progress_full --> need to debug this bit anyway 
 
   return (
+
     <div className = "progress-bar-component-container">
+
         <div className = "progress-bar-container-boy">
+            <Boyfish margin={`${Math.min((completedTasks/taskTarget)* 100 - 1, 88)}%`}/>
+
+            <div className="progress-bar-boy">
+              <div style={{'width':`${Math.min((completedTasks/taskTarget)* 100, 100)}%`}} className="progress-boy"></div>
+              <div className="progress-boy-figure" style={{'marginLeft':`${Math.min((completedTasks/taskTarget)* 100 + 1, 93)}%`}}> {`${Math.round(completedTasks/taskTarget * 100)}%`}</div>
+            </div>
+
             <div>
               <div className="task-target-title"> Task Goal</div>
               <form onSubmit={submitTarget}>
@@ -108,15 +119,16 @@ const Progressbar = () => {
                 <button className='taskTarget-Button'>Set</button>
               </form>
             </div>
-
-            <div className="progress-bar-boy">
-              <div style={{'width':`${(completedTasks/taskTarget)* 100}%`}} className="progress-boy"></div>
-              <div className="progress-boy-figure" style={{'marginLeft':`${(completedTasks/taskTarget)* 100 + 1}%`}}> {`${completedTasks/taskTarget * 100}%`}</div>
-            </div>
         </div>
 
-          
           <div className = "progress-bar-container-girl">
+            <Girlfish margin={`${Math.max((100 - (completedTasksGirl/taskTargetGirl)* 100) - 15, -1)}%`}/>
+            <div className="progress-bar-girl">
+              <div style={{'width':`${Math.min((completedTasksGirl/taskTargetGirl)* 100, 100)}%`}} className="progress-girl"></div>
+              {/* set a max --> research the function for this*/}
+              {/* play around with fish svg maybe? */}
+              <div className="progress-girl-figure" style={{'marginRight': `${Math.max((96 - ((completedTasksGirl/taskTargetGirl)* 100)), 2)}%`}}> {`${Math.round(completedTasksGirl/taskTargetGirl * 100)}%`}</div>
+            </div>
             <div className="set-task-girl">
               <div className="task-target-title"> Task Goal</div>
               <form className ="set_task_target_girl" onSubmit={submitTarget}>
@@ -124,18 +136,11 @@ const Progressbar = () => {
                 <button className='taskTarget-Button'>Set</button>
               </form>
             </div>
-
-            <div className="progress-bar-girl">
-              <div style={{'width':`${(completedTasksGirl/taskTargetGirl)* 100}%`}} className="progress-girl"></div>
-              {/* set a max --> research the function for this*/}
-              {/* play around with fish svg maybe? */}
-              <div className="progress-girl-figure" style={{'marginRight': `${96 - ((completedTasksGirl/taskTargetGirl)* 100)}%`}}> {`${completedTasksGirl/taskTargetGirl * 100}%`}</div>
-            </div>
           </div>
 
           {/* 'marginleft':`${96 - ((completedTasksGirl/taskTargetGirl)* 100)}% */}
 
-          <div className="progress-description"> Reach 100% to decide your next date!</div>
+          {/* <div className="progress-description"> Reach 100% to decide your next date!!</div> */}
 
         {showDate && (
           <div className = 'overlay'>

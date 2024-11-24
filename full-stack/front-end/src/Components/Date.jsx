@@ -7,9 +7,10 @@ import { useState, useEffect } from 'react'
 const Date = ({date, prize, showRandomDate}) => {
   const [cookies, setCookies, removeCookies] = useCookies("")
   const [randomDate, setRandomDate] = useState(null);
+  const [deleteRandom, setDeleteRandom] = useState(false)
 
   const deleteDate = async() => {
-    if (!prize) {
+    if (!prize || deleteRandom) {
       try {
         await fetch(`${process.env.REACT_APP_SERVER}/dates/${date.date_id}`, {
           method: "DELETE",
@@ -38,19 +39,26 @@ const Date = ({date, prize, showRandomDate}) => {
 
   useEffect(() => getRandomDate, []);
 
+  const bookDate = () => {
+    const eventTitle = encodeURIComponent(randomDate.date_title)
+    const calendarUrl = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${eventTitle}`
+    window.open(calendarUrl, '_blank')
+  }
 
   if (prize) {
-    if (!randomDate) return <div>Nothing loaded</div>;
+    if (!randomDate) return <div>Please Input Another Date</div>;
   
     return (
-        <div className = 'modal'>
-          <div className='task-container-single'>
-            <div className = "checkbox"> 
-              <img src={heart} className="checkmark-icon" alt="complete"></img>
-            </div>
-            <div className = "task" id={randomDate.date_id}></div>
-            <label htmlFor = {randomDate.date_id}> {randomDate.date_title} </label>
+        <div className = 'modal' style={{'height': '200px', 'width': '500px'}}>
+          <div className = 'random-date-container'>
+            <img src={heart} className="checkmark-icon" alt="complete"></img>
+            <div id={randomDate.date_id}>{randomDate.date_title}</div>
+            <img src={heart} className="checkmark-icon" alt="complete"></img>
           </div>
+
+          <button onClick={bookDate} className="book-date">
+            Book Now &#128523;
+          </button>
         </div>
     )
 
