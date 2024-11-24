@@ -5,6 +5,10 @@
 - Global CSS file + page specific CSS files
 - Adding more fishes into the background
 - Edit task
+- Improving aesthetics
+- User friendly elements:
+   - After you book the date, it gets deleted from your list
+   - Adding an invite/join feature
 
 ## Extensions
 - incorporating GPT/AI wrapper to generate date itineraries based on the dates that have been uplodade
