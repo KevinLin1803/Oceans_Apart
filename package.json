@@ -2,7 +2,8 @@
   "name": "full-stack",
   "version": "1.0.0",
   "scripts": {
-    "build": "if-env TYPE=server && (cd server && npm install) || (cd client && npm install)",
+    "build": "if-env TYPE=server && (cd front-end && npm install) || (cd back-end && npm install)",
+    "start": "npm run server & npm run client",
     "server": "node ./backend/server.js",
     "client": "cd front-end && npm start"
   },
