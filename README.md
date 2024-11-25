@@ -1,4 +1,4 @@
-## Couples To do App
+## Oceans Apart -- Couples Long Distance App
 
 ## Improvements
 - Global CSS file + page specific CSS files
