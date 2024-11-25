@@ -5,7 +5,7 @@ require('dotenv').config()
 const pool = new Pool({
     host: process.env.HOST,
     user: process.env.USERNAME,
-    port: process.env.DB_PORT,
+    port: process.env.DBPORT,
     password: process.env.PASSWORD,
     database: "To-Do-App",
     max: 20,               // Reduce max connections to make debugging easier
