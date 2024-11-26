@@ -7,7 +7,7 @@ const pool = new Pool({
     user: process.env.USERNAME,
     port: process.env.DBPORT,
     password: process.env.PASSWORD,
-    database: "To-Do-App",
+    database: process.env.DB || "To-Do-App",
     max: 20,               // Reduce max connections to make debugging easier
     idleTimeoutMillis: 1000,  // Reduce idle timeout to clean up faster
     connectionTimeoutMillis: 1000, // Fail fast if can't connect
