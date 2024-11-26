@@ -9,6 +9,7 @@
 - User friendly elements:
    - After you book the date, it gets deleted from your list
    - Adding an invite/join feature
+- Also made the mistake of making html/css design edits at 80% view rather than default 100%
 
 ## Improvements (Prod)
 - It's super slow and I'm not too sure why 
