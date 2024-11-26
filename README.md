@@ -1,6 +1,6 @@
-## Oceans Apart -- Couples Long Distance App
+## Oceans Apart - Couples Long Distance App
 
-## Improvements
+## Improvements (Dev)
 - Global CSS file + page specific CSS files
 - HTML and CSS responsive page :)
 - Adding more fishes into the background
@@ -9,6 +9,11 @@
 - User friendly elements:
    - After you book the date, it gets deleted from your list
    - Adding an invite/join feature
+
+## Improvements (Prod)
+- It's super slow and I'm not too sure why 
+
+
 
 ## Extensions
 - incorporating GPT/AI wrapper to generate date itineraries based on the dates that have been uplodade
