@@ -1,4 +1,4 @@
-## Oceans Apart - Couples Long Distance App
+# Oceans Apart - Couples Long Distance App
 
 ## Description
 Online web-app tailored for long-distance couples to help stay productive and book more online dates. The web-app provides a platform for couples to write out and share their daily tasks with one another. Completing tasks builds shared progress. Once progress goals have been met, a prompt to book an online date will appear. 
