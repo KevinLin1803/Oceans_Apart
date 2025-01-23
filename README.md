@@ -25,7 +25,7 @@ https://youtu.be/RcZkiOYRCk0
 
 
 ## Download Instructions
-To run this application locally, you need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) installed.
+To run this application locally, you need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) installed, create an ENV file and postGres database. 
 
 ```bash
 # Clone this repository
