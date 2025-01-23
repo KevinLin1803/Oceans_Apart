@@ -2,6 +2,7 @@
 
 ## Description
 
+
 ## Key features
 - User authentication
 - Real-time updates (websockets)
@@ -9,6 +10,10 @@
 
 ## Tech Stack
 
+
 ## Video Demonstration
 Walkthrough on deployed web-app
 https://youtu.be/RcZkiOYRCk0
+
+## Download Instructions
+
